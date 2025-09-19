@@ -18,14 +18,14 @@
 
     <!-- Center: Clock -->
     <div class="absolute left-1/2 transform -translate-x-1/2">
-    <button
+      <button
         class="px-2 py-1 rounded-md text-sm font-semibold text-gray-100 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-400/60"
         @click="toggleCalendar"
         aria-haspopup="true"
         :aria-expanded="calendarOpen ? 'true' : 'false'"
-    >
+      >
         {{ formatted }}
-    </button>
+      </button>
     </div>
 
     <!-- Right: System Tray -->

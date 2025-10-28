@@ -1,14 +1,9 @@
 <template>
-  <section
-    id="experience"
-    class="py-16 px-4 md:px-8 bg-gray-800 flex justify-center"
-  >
-    <div class="max-w-5xl mx-auto w-full">
-      <h2 class="text-3xl font-bold text-emerald-400 mb-8 text-center">
-        Experience
-      </h2>
+  <section id="experience" class="py-16 px-4 md:px-8 bg-gray-800">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-emerald-400 mb-8">Experience</h2>
 
-      <div class="space-y-12 max-w-3xl mx-auto">
+      <div class="space-y-12">
         <!-- Experience Item 1 -->
         <div class="relative pl-8 border-l-2 border-emerald-500">
           <div

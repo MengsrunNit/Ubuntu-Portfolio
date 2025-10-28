@@ -1,14 +1,9 @@
 <template>
-  <section
-    id="contact"
-    class="py-16 px-4 md:px-8 bg-gray-800 flex justify-center"
-  >
-    <div class="max-w-5xl mx-auto w-full">
-      <h2 class="text-3xl font-bold text-emerald-400 mb-8 text-center">
-        Contact Me
-      </h2>
+  <section id="contact" class="py-16 px-4 md:px-8 bg-gray-800">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-emerald-400 mb-8">Contact Me</h2>
 
-      <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12">
         <!-- Left: Contact Info -->
         <div>
           <p class="text-gray-300 mb-6">
@@ -187,14 +182,12 @@
               ></textarea>
             </div>
 
-            <div class="flex justify-center">
-              <button
-                type="submit"
-                class="w-full md:w-2/3 py-2 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-md transition-colors duration-200 transform focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              >
-                Send Message
-              </button>
-            </div>
+            <button
+              type="submit"
+              class="w-full py-2 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-md transition-colors duration-200 transform focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            >
+              Send Message
+            </button>
           </form>
 
           <p

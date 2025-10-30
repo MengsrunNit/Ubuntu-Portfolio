@@ -10,7 +10,7 @@
   >
     <!-- Progress bar indicator with better visibility -->
     <div
-      class="absolute bottom-0 left-0 h-0.5"
+      class="absolute bottom-0 left-0 h-0.5 transition-all duration-150 ease-linear"
       :class="{ 'bg-emerald-400': isDarkTheme, 'bg-amber-400': !isDarkTheme }"
       :style="{ width: scrollProgress + '%' }"
     ></div>
@@ -238,15 +238,7 @@
 
 <script setup>
 // Keep the existing script code
-import {
-  ref,
-  onMounted,
-  onBeforeUnmount,
-  computed,
-  watch,
-  defineProps,
-  defineEmits,
-} from "vue";
+import { ref, onMounted, onBeforeUnmount, computed } from "vue";
 
 // Define props and emits
 const props = defineProps({
@@ -268,23 +260,34 @@ const bodyElement = ref(null);
 
 const navItems = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
+  { label: "Skills", href: "#about" },
   { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
 ];
 
-// Calculate scroll progress percentage
+// Helper to get accurate document height
+const getDocumentHeight = () =>
+  Math.max(
+    document.body.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.clientHeight,
+    document.documentElement.scrollHeight,
+    document.documentElement.offsetHeight
+  );
+
+// Calculate scroll progress percentage, clamped to [0, 100]
 const scrollProgress = computed(() => {
-  if (documentHeight.value <= 0) return 0;
-  const viewportHeight = window.innerHeight;
-  const maxScroll = documentHeight.value - viewportHeight;
-  return (scrollPosition.value / maxScroll) * 100;
+  const viewportHeight = window.innerHeight || 0;
+  const maxScroll = Math.max(documentHeight.value - viewportHeight, 1); // avoid division by zero
+  const raw = (scrollPosition.value / maxScroll) * 100;
+  return Math.min(Math.max(raw, 0), 100);
 });
 
 const checkScroll = () => {
   scrolled.value = window.scrollY > 10;
   scrollPosition.value = window.scrollY;
+  // Keep document height updated in case content changes dynamically
+  documentHeight.value = getDocumentHeight();
   updateActiveSection();
 };
 
@@ -359,13 +362,7 @@ const handleResize = () => {
   }
 
   // Update document height for scroll progress calculation
-  documentHeight.value = Math.max(
-    document.body.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.clientHeight,
-    document.documentElement.scrollHeight,
-    document.documentElement.offsetHeight
-  );
+  documentHeight.value = getDocumentHeight();
 
   // Update nav height
   updateNavHeight();

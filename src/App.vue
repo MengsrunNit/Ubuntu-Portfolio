@@ -99,7 +99,7 @@
     <div class="pt-16">
       <!-- Add padding to account for fixed navbar -->
       <main>
-        <Home id="hero" />
+        <Home id="home" />
         <AboutMe id="about" />
         <Experience id="experience" />
         <Projects id="projects" />

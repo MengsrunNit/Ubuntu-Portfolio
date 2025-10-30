@@ -1,5 +1,5 @@
 <template>
-  <section id="hero" class="relative min-h-screen overflow-hidden bg-gray-950">
+  <section id="home" class="relative min-h-screen overflow-hidden bg-gray-950">
     <!-- Background layers -->
     <div aria-hidden="true" class="absolute inset-0">
       <!-- soft gradient wash -->
@@ -155,7 +155,7 @@
 
     <!-- Scroll indicator -->
     <div
-      class="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 transform"
+      class="absolute bottom-8 inset-x-0 z-20 flex flex-col items-center"
       aria-hidden="true"
     >
       <div class="mb-2 text-center text-sm text-gray-400">Scroll Down</div>

@@ -104,14 +104,15 @@
 </template>
 
 <script setup>
+import investorImpactLogo from "../assets/company_icons/logo.png";
 const experiences = [
   {
     role: "Software Engineering Intern",
     company: "Investor Impact.",
     period: "August 2025 – Present",
-    logo: "https://image.pitchbook.com/9ptmFJ7UNXwcTVePyuWjYmKnEt01670252267214_200x200",
+    logo: investorImpactLogo,
     description:
-      "Developed RESTful APIs using Node.js and Express while implementing new features for the main web application. Participated in code reviews and workflow improvements, utilizing Git and GitHub for version control and team collaboration.",
+      "Engineered and debugged core AI applications (Writer, Proofreader, Translator, Scorekeeper, Brainstorm) using Streamlit, OpenAI API, and Python. Tested bilingual (Japanese/English) functionality, Word/Excel export features, and documented bugs with proposed improvements. Contributed to Version 2.0 development focused on building collaborative AI agents and integrating InDesign export capabilities.",
     type: "Internship",
     location: "Remote / Greenville, SC",
   },
@@ -131,7 +132,7 @@ const experiences = [
     period: "September 2023 – May 2025",
     logo: "https://echodelta.co/wp-content/uploads/logo_furman-university@2x-1.png",
     description:
-      "Assisted in lab sessions providing debugging support and held weekly office hours for student guidance. Graded assignments with detailed feedback and created supplementary learning materials to help students understand complex concepts.",
+      "Supported CSC121 (Intro to Computer Programming) and CSC122 (Data Structures and Algorithms) by assisting students during lab sessions and office hours. Helped debug code, explained programming concepts, and guided students to improve problem-solving efficiency. Graded assignments and provided constructive feedback to reinforce understanding of core computing principles.",
     type: "Academic",
     location: "Greenville, SC",
   },
@@ -141,7 +142,7 @@ const experiences = [
     period: "Summer 2024 & Summer 2025",
     logo: "https://upload.wikimedia.org/wikipedia/en/f/f7/Institute_of_Technology_of_Cambodia_logo.png",
     description:
-      "Led a 4-member team for website development, implementing responsive layouts for all devices. Managed projects with Agile methodologies and presented the completed website to stakeholders and faculty members.",
+      "Worked in a team of three to develop and maintain a responsive web platform. Contributed to transitioning the backend from Django to FastAPI to enhance performance and scalability, focusing on fast routing for a map-based API. Developed an independent routing API using the Dijkstra algorithm with mapping data from OpenStreetMap, ensuring high speed and reliability. Collaborated using Agile methodologies and participated in project presentations to stakeholders and faculty members.",
     type: "Contract",
     location: "Phnom Penh, Cambodia",
   },
@@ -151,7 +152,7 @@ const experiences = [
     period: "May 2023 – August 2023",
     logo: "https://echodelta.co/wp-content/uploads/logo_furman-university@2x-1.png",
     description:
-      "Researched machine learning model performance and explainability, building classification models with TensorFlow and scikit-learn. Analyzed large datasets and visualized insights using Pandas and Matplotlib, then co-authored a research report and presented findings to faculty.",
+      "Collaborated with the Children of the Upstate program to design and implement an interactive museum exhibition using Arduino and electronic components to enhance children's engagement and learning. Developed playful technologies for hands-on experiences, integrating sensors and circuits for interactive displays. Combined creative design with technical implementation to support child development through technology-based exploration.",
     type: "Research",
     location: "Greenville, SC",
   },

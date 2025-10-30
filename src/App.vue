@@ -104,6 +104,7 @@
         <Experience id="experience" />
         <Projects id="projects" />
         <ContactMe id="contact" />
+        <FooterSection />
       </main>
     </div>
   </div>
@@ -117,6 +118,7 @@ import Projects from "./components/Projects.vue";
 import NavBar from "./components/Navbar.vue";
 import TopBar from "./components/TopBar.vue";
 import Experience from "./components/Expereince.vue";
+import FooterSection from "./components/FooterSection.vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 export default {
@@ -129,6 +131,7 @@ export default {
     NavBar,
     TopBar,
     Experience,
+    FooterSection,
   },
   setup() {
     const isDarkTheme = ref(true); // Default to dark theme

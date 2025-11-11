@@ -2,7 +2,7 @@
   <section id="projects" class="py-20 px-4 md:px-8 bg-gray-900 text-gray-100">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16">
-        <h2 class="text-5xl md:text-6xl font-bold mb-4 text-emerald-400">
+        <h2 class="section-title text-emerald-400">
           Projects
         </h2>
         <p class="text-gray-400 text-lg max-w-2xl mx-auto">

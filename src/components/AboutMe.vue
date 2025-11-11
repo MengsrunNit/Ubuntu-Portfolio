@@ -1,7 +1,7 @@
 <template>
   <section id="about" class="py-16 px-4 md:px-8 bg-gray-900">
     <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-emerald-400 mb-12">
+      <h2 class="section-title text-emerald-400 mb-12">
         Technical Skills
       </h2>
 

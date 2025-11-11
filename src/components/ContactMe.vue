@@ -1,7 +1,7 @@
 <template>
   <section id="contact" class="py-20 px-4 md:px-8 bg-gray-900">
     <div class="max-w-2xl mx-auto">
-      <h2 class="text-3xl font-bold text-emerald-400 mb-3">Contact Me</h2>
+  <h2 class="section-title text-emerald-400 mb-3">Contact Me</h2>
       <p class="text-gray-300 mb-8">
         Have a project, collaboration, or question? Drop me a line—I'll reply as
         soon as I can.

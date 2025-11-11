@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,6 +12,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Import a softer UI font (Inter) for a friendlier, softer look */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
 
 a {
   font-weight: 500;
@@ -76,4 +80,14 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Unified section title for Projects, Skills, Experience, Contact */
+.section-title {
+  font-size: clamp(1.75rem, 1.4rem + 2.5vw, 3rem); /* responsive 28px - 48px */
+  line-height: 1.05;
+  font-weight: 700; /* slightly softer than 800 */
+  letter-spacing: -0.01em;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  margin: 0 0 0.75rem;
 }

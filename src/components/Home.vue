@@ -41,7 +41,7 @@
           <img
             src="../assets/Mengsrunpf.jpeg"
             alt="Portrait of Mengsrun Nit"
-            class="h-72 w-72 md:h-[28rem] md:w-[28rem] rounded-2xl border border-white/10 object-cover shadow-xl"
+            class="h-80 w-80 md:h-[30rem] md:w-[30rem] rounded-2xl border border-white/10 object-cover shadow-xl"
             style="object-position: 50% 20%"
             loading="lazy"
             decoding="async"
@@ -55,7 +55,7 @@
         <!-- name + role (centered below image) -->
         <div class="relative z-10 text-center">
           <h1
-            class="text-4xl md:text-5xl font-extrabold leading-tight text-white"
+            class="text-2xl md:text-3xl font-bold leading-tight text-white"
           >
             <span
               class="bg-gradient-to-r from-emerald-300 via-teal-300 to-emerald-400 bg-clip-text text-transparent"
@@ -83,30 +83,24 @@
       >
         <!-- Role -->
         <h2
-          class="mt-0 text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-300 via-teal-300 to-emerald-400 bg-clip-text text-transparent"
+          class="mt-0 text-3xl md:text-4xl font-semibold tracking-tight bg-gradient-to-r from-emerald-300 via-teal-300 to-emerald-400 bg-clip-text text-transparent"
         >
           Software Engineer
         </h2>
 
         <!-- Bio -->
         <p
-          class="mt-6 max-w-prose text-xl leading-relaxed text-gray-200 md:max-w-lg md:text-2xl"
+          class="mt-4 max-w-prose text-lg leading-relaxed text-gray-200 md:max-w-lg md:text-xl"
         >
           I’m passionate about building
-          <span class="text-emerald-400 font-semibold">backend systems</span>,
-          <span class="text-emerald-400 font-semibold"
-            >cloud infrastructure</span
-          >, and
-          <span class="text-emerald-400 font-semibold">AI-driven features</span>
+          <span class="text-emerald-400 font-medium">backend systems</span>,
+          <span class="text-emerald-400 font-medium">cloud infrastructure</span>, and
+          <span class="text-emerald-400 font-medium">AI-driven features</span>
           that make apps fast and reliable. Experienced with
-          <span class="text-emerald-300 font-semibold"><b>FastAPI</b></span
-          >, <span class="text-emerald-300 font-semibold"><b>Node.js</b></span
-          >,
-          <span class="text-emerald-300 font-semibold"
-            ><b>cloud servers</b></span
-          >, and
-          <span class="text-emerald-300 font-semibold"><b>databases</b></span>
-          and always eager to learn and build better systems.
+          <span class="text-emerald-300 font-medium">FastAPI</span>,
+          <span class="text-emerald-300 font-medium">Node.js</span>,
+          <span class="text-emerald-300 font-medium">cloud servers</span>, and
+          <span class="text-emerald-300 font-medium">databases</span> — always eager to learn and build better systems.
         </p>
 
         <!-- Buttons -->

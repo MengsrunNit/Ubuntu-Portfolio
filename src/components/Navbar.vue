@@ -1,11 +1,9 @@
 <template>
   <nav
-    class="fixed top-0 left-0 right-0 z-[60] backdrop-blur-lg shadow-md transition-all duration-300"
+    class="fixed top-0 left-0 right-0 z-[60] px-3 sm:px-4 transition-all duration-300"
     :class="{
       'py-3 sm:py-4': !scrolled,
-      'py-1.5 sm:py-2 shadow-emerald-500/10': scrolled,
-      'bg-gray-900/70': isDarkTheme,
-      'bg-blue-500/70': !isDarkTheme,
+      'py-1.5 sm:py-2': scrolled,
     }"
     role="navigation"
     aria-label="Primary"
@@ -20,13 +18,22 @@
     ></div>
 
     <div
-      class="max-w-7xl mx-auto flex items-center justify-between px-3 sm:px-4 lg:px-6"
+      class="nav-shell max-w-7xl mx-auto flex items-center justify-center lg:justify-between px-3 sm:px-4 lg:px-6 rounded-2xl border transition-all duration-300 backdrop-blur-lg"
+      :class="[
+        scrolled ? 'shadow-lg' : 'shadow-md',
+        isDarkTheme
+          ? 'bg-gray-900/80 border-gray-800/70 shadow-emerald-500/10'
+          : 'bg-white/80 border-white/70 shadow-blue-500/10',
+      ]"
     >
       <!-- Logo / Brand -->
       <a
         href="#home"
-        class="text-white font-bold tracking-tight flex items-center py-2 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg transition-all"
-        :class="scrolled ? 'text-lg sm:text-xl' : 'text-xl sm:text-2xl'"
+        class="font-bold tracking-tight flex items-center py-2 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg transition-all"
+        :class="[
+          scrolled ? 'text-lg sm:text-xl' : 'text-xl sm:text-2xl',
+          isDarkTheme ? 'text-white' : 'text-slate-900'
+        ]"
       >
         <span class="text-emerald-400 relative inline-block">
           <span
@@ -44,13 +51,15 @@
           v-for="(item, index) in navItems"
           :key="index"
           :href="item.href"
-          class="text-gray-200 hover:text-emerald-400 transition-all duration-200 relative py-2 px-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-md"
-          :class="{
-            'text-emerald-400 font-medium':
-              activeSection === item.href.substring(1),
-            'text-sm': scrolled,
-            'text-base': !scrolled,
-          }"
+          class="transition-all duration-200 relative py-2 px-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-md"
+          :class="[
+            activeSection === item.href.substring(1)
+              ? 'text-emerald-500 font-medium'
+              : isDarkTheme
+              ? 'text-gray-200 hover:text-emerald-400'
+              : 'text-gray-700 hover:text-emerald-600',
+            scrolled ? 'text-sm' : 'text-base'
+          ]"
         >
           {{ item.label }}
           <span
@@ -63,7 +72,12 @@
         <!-- Theme Toggle - Desktop -->
         <button
           @click="toggleTheme"
-          class="text-gray-200 hover:text-emerald-400 transition-colors duration-200 p-2 rounded-full hover:bg-gray-800/50 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+          class="transition-colors duration-200 p-2 rounded-full flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+          :class="
+            isDarkTheme
+              ? 'text-gray-200 hover:text-emerald-400 hover:bg-gray-800/50'
+              : 'text-slate-700 hover:text-emerald-600 hover:bg-slate-100'
+          "
           aria-label="Toggle theme"
         >
           <svg
@@ -145,165 +159,139 @@
         </button>
       </div>
 
-      <!-- Mobile Hamburger Button -->
-      <button
-        @click="toggleMobileMenu"
-        class="md:hidden text-gray-200 hover:text-white focus:outline-none p-2 rounded-md active:bg-gray-800/50 focus-visible:ring-2 focus-visible:ring-emerald-400 transition-transform active:scale-95"
-        aria-label="Toggle menu"
-        :aria-expanded="mobileMenuOpen"
-      >
-        <svg
-          v-if="!mobileMenuOpen"
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-        <svg
-          v-else
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
+      <!-- Mobile hamburger removed per request (hide on small screens). -->
     </div>
 
     <!-- Mobile/Tablet Menu Overlay -->
+  
     <transition name="fade">
       <div
-        v-show="mobileMenuOpen"
-        class="absolute top-full left-0 right-0 lg:hidden z-50 md:right-auto md:w-80"
+        v-show="mobileMenuOpen && isDarkTheme"
+        class="fixed inset-0 z-40 lg:hidden"
         :class="[
           isDarkTheme
-            ? 'bg-gray-900/90 backdrop-blur-2xl'
-            : 'bg-white/90 backdrop-blur-2xl',
-          'shadow-2xl border border-white/10',
+            ? 'bg-black/50'       // darker overlay
+            : 'bg-black/40',      // subtle dark overlay for light theme
         ]"
+        @click.self="closeMobileMenu"
       ></div>
     </transition>
 
     <!-- Mobile/Tablet Menu Panel -->
     <transition name="slide-down">
       <div
-        v-show="mobileMenuOpen"
-        class="absolute top-full left-0 right-0 lg:hidden z-50 md:right-auto md:w-80"
-        :class="[
-          isDarkTheme ? 'bg-gray-900/98' : 'bg-white/98',
-          'backdrop-blur-xl shadow-2xl',
-        ]"
+        v-show="mobileMenuOpen && isDarkTheme"
+        class="fixed top-[56px] left-0 right-0 lg:hidden z-50"
       >
-        <div
-          class="max-h-[calc(100vh-80px)] overflow-y-auto overscroll-contain"
-        >
-          <div class="p-4 space-y-2">
-            <!-- Menu Items -->
-            <a
-              v-for="(item, index) in navItems"
-              :key="index"
-              :href="item.href"
-              @click="navigateTo(item.href)"
-              class="block px-4 py-3 rounded-lg transition-all duration-200"
-              :class="[
-                activeSection === item.href.substring(1)
-                  ? 'bg-emerald-500/20 text-emerald-400 font-semibold'
-                  : isDarkTheme
-                  ? 'text-gray-200 hover:bg-gray-800/50 hover:text-emerald-400'
-                  : 'text-gray-700 hover:bg-gray-100 hover:text-emerald-600',
-              ]"
-            >
-              <div class="flex items-center justify-between">
-                <span class="text-base">{{ item.label }}</span>
-                <svg
-                  v-if="activeSection === item.href.substring(1)"
-                  class="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </div>
-            </a>
-
-            <!-- Contact Button -->
-            <a
-              href="#contact"
-              @click="navigateTo('#contact')"
-              class="block w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-lg transition-all duration-200 text-center font-medium shadow-lg mt-4"
-            >
-              Contact Me
-            </a>
-
-            <!-- Theme Toggle -->
-            <button
-              @click="toggleTheme"
-              class="flex items-center justify-center w-full py-3 px-4 rounded-lg transition-all duration-200 mt-2"
-              :class="[
-                isDarkTheme
-                  ? 'bg-gray-800 hover:bg-gray-700 text-gray-200'
-                  : 'bg-gray-200 hover:bg-gray-300 text-gray-700',
-              ]"
-            >
-              <span class="mr-2">Toggle Theme</span>
-              <svg
-                v-if="!isDarkTheme"
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                />
-              </svg>
-              <svg
-                v-else
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <!-- Footer -->
+        <div class="flex justify-center px-4">
           <div
-            class="px-4 py-4 text-center text-xs opacity-60 border-t"
-            :class="
+            class="mobile-menu-panel"
+            :class="[
               isDarkTheme
-                ? 'text-gray-400 border-gray-800'
-                : 'text-gray-600 border-gray-200'
-            "
+                ? 'bg-gray-900 border border-gray-800'
+                : 'bg-white border border-gray-200',
+              'rounded-b-2xl shadow-2xl'
+            ]"
           >
-            <p>© 2025 Mengsrun Nit</p>
+            <div
+              class="max-h-[calc(100vh-80px)] overflow-y-auto overscroll-contain"
+            >
+              <div class="p-4 space-y-2">
+                <!-- Menu Items -->
+                <a
+                  v-for="(item, index) in navItems"
+                  :key="index"
+                  :href="item.href"
+                  @click="navigateTo(item.href)"
+                  class="block px-4 py-3 rounded-lg transition-all duration-200"
+                  :class="[
+                    activeSection === item.href.substring(1)
+                      ? 'bg-emerald-500/20 text-emerald-400 font-semibold'
+                      : isDarkTheme
+                      ? 'text-gray-200 hover:bg-gray-800/50 hover:text-emerald-400'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-emerald-600',
+                  ]"
+                >
+                  <div class="flex items-center justify-between">
+                    <span class="text-base">{{ item.label }}</span>
+                    <svg
+                      v-if="activeSection === item.href.substring(1)"
+                      class="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </a>
+
+                <!-- Contact Button -->
+                <a
+                  href="#contact"
+                  @click="navigateTo('#contact')"
+                  class="block w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-lg transition-all duration-200 text-center font-medium shadow-lg mt-4"
+                >
+                  Contact Me
+                </a>
+
+                <!-- Theme Toggle -->
+                <button
+                  @click="toggleTheme"
+                  class="flex items-center justify-center w-full py-3 px-4 rounded-lg transition-all duration-200 mt-2"
+                  :class="[
+                    isDarkTheme
+                      ? 'bg-gray-800 hover:bg-gray-700 text-gray-200'
+                      : 'bg-gray-200 hover:bg-gray-300 text-gray-700',
+                  ]"
+                >
+                  <span class="mr-2">Toggle Theme</span>
+                  <svg
+                    v-if="!isDarkTheme"
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Footer -->
+              <div
+                class="px-4 py-4 text-center text-xs opacity-60 border-t"
+                :class="
+                  isDarkTheme
+                    ? 'text-gray-400 border-gray-800'
+                    : 'text-gray-600 border-gray-200'
+                "
+              >
+                <p>© 2025 Mengsrun Nit</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -351,7 +339,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, computed } from "vue";
+import { ref, onMounted, onBeforeUnmount, computed, watch } from "vue";
 
 const props = defineProps({
   isDarkTheme: { type: Boolean, default: true },
@@ -366,6 +354,8 @@ const documentHeight = ref(0);
 const navHeight = ref(0);
 const topNavRef = ref(null);
 const bottomBarHidden = ref(false);
+// Keep track of previous (desktop) theme so we can restore it after mobile
+const prevDesktopTheme = ref(null);
 
 const navItems = [
   { label: "Home", href: "#home" },
@@ -444,6 +434,15 @@ const updateActiveSection = () => {
 };
 
 const toggleMobileMenu = () => {
+  // Mobile menu is available only in dark mode. If not dark, ignore the toggle.
+  if (!props.isDarkTheme) {
+    // Ensure menu is closed in case it was open
+    mobileMenuOpen.value = false;
+    document.body.style.overflow = "";
+    bottomBarHidden.value = false;
+    return;
+  }
+
   mobileMenuOpen.value = !mobileMenuOpen.value;
 
   if (mobileMenuOpen.value) {
@@ -453,6 +452,16 @@ const toggleMobileMenu = () => {
     document.body.style.overflow = "";
   }
 };
+
+// Watch theme changes: if theme switches to light while mobile menu is open, close it.
+watch(
+  () => props.isDarkTheme,
+  (isDark) => {
+    if (!isDark && mobileMenuOpen.value) {
+      closeMobileMenu();
+    }
+  }
+);
 
 const closeMobileMenu = () => {
   mobileMenuOpen.value = false;
@@ -482,9 +491,45 @@ const updateNavHeight = () => {
 };
 
 const handleResize = () => {
+  // Close the mobile menu when switching to desktop (existing behavior)
   if (window.innerWidth >= 1024 && mobileMenuOpen.value) {
     closeMobileMenu();
   }
+
+  // Also ensure the mobile menu is closed when switching to small screens
+  // so it cannot remain open when the hamburger (mobile) control is removed.
+  if (window.innerWidth < 768 && mobileMenuOpen.value) {
+    closeMobileMenu();
+  }
+
+  // Automatic theme behavior:
+  // - When entering mobile (<768px) and theme is light, force dark and remember previous.
+  // - When leaving mobile (>=768px) and we previously forced a desktop theme, restore it.
+  try {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      if (props.isDarkTheme === false) {
+        // remember previous desktop theme and switch to dark for mobile
+        prevDesktopTheme.value = false;
+        emit("theme-toggle", true);
+        localStorage.setItem("portfolio-theme", "dark");
+      }
+    } else {
+      // leaving mobile
+      if (prevDesktopTheme.value !== null) {
+        // restore previously remembered theme
+        emit("theme-toggle", prevDesktopTheme.value);
+        localStorage.setItem(
+          "portfolio-theme",
+          prevDesktopTheme.value ? "dark" : "light"
+        );
+        prevDesktopTheme.value = null;
+      }
+    }
+  } catch (e) {
+    // ignore for SSR or unexpected window errors
+  }
+
   documentHeight.value = getDocumentHeight();
   updateNavHeight();
 };
@@ -527,7 +572,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-nav {
+.nav-shell {
   border-bottom: 1px solid rgba(16, 185, 129, 0.1);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
@@ -582,6 +627,56 @@ nav {
 @media (min-width: 1024px) {
   nav a:hover {
     text-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+  }
+}
+
+/* FINAL FIX: Account for global app padding and ensure consistent width */
+.mobile-menu-panel {
+  box-sizing: border-box;
+  /* This accounts for your global #app padding: 2rem and ensures consistent width */
+  width: calc(100vw - 2rem) !important; /* Subtract the app container padding */
+  max-width: 360px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 1rem !important;
+  line-height: 1.2 !important;
+}
+
+/* Responsive adjustments */
+@media (min-width: 640px) {
+  .mobile-menu-panel {
+    width: 400px !important;
+    max-width: calc(100vw - 2rem) !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-menu-panel {
+    width: 480px !important;
+    max-width: calc(100vw - 3rem) !important;
+  }
+}
+
+/* Ensure no theme-specific width conflicts */
+.mobile-menu-panel.bg-white,
+.mobile-menu-panel.bg-gray-900 {
+  width: calc(100vw - 2rem) !important;
+  max-width: 360px !important;
+}
+
+@media (min-width: 640px) {
+  .mobile-menu-panel.bg-white,
+  .mobile-menu-panel.bg-gray-900 {
+    width: 400px !important;
+    max-width: calc(100vw - 2rem) !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-menu-panel.bg-white,
+  .mobile-menu-panel.bg-gray-900 {
+    width: 480px !important;
+    max-width: calc(100vw - 3rem) !important;
   }
 }
 </style>

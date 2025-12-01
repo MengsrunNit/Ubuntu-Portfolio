@@ -11,75 +11,198 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
-        <!-- Working on it Card 1 -->
         <div
+          v-for="(project, index) in projects"
+          :key="index"
           class="bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-emerald-400/20 hover:scale-[1.02] flex flex-col"
         >
-          <div
-            class="h-40 sm:h-48 bg-gray-700 flex items-center justify-center relative"
-          >
-            <span
-              class="absolute top-3 left-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-600/90 text-white text-xs font-medium shadow"
-            >
-              <span class="relative flex h-2 w-2">
-                <span
-                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"
-                ></span>
-                <span
-                  class="relative inline-flex rounded-full h-2 w-2 bg-white"
-                ></span>
+          <!-- Placeholder Card Logic -->
+          <template v-if="project.isPlaceholder">
+            <div class="h-40 sm:h-48 bg-gray-700 flex items-center justify-center relative flex-1 min-h-[300px]">
+              <span class="absolute top-3 left-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-600/90 text-white text-xs font-medium shadow">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                </span>
+                Working on it
               </span>
-              Working on it
-            </span>
-            <svg
-              class="w-12 h-12 sm:w-16 sm:h-16 text-emerald-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+              <svg class="w-12 h-12 sm:w-16 sm:h-16 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+              </svg>
+            </div>
+          </template>
+
+          <!-- Real Project Card Logic -->
+          <template v-else>
+            <!-- Project Image / Header -->
+            <div class="h-48 bg-gray-700 flex items-center justify-center relative overflow-hidden group">
+              <img
+                :src="project.image"
+                :alt="project.title"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-[2px] opacity-90 group-hover:opacity-100"
               />
+
+              <!-- Overlay with links -->
+              <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
+                <a
+                  v-if="project.links.github"
+                  :href="project.links.github"
+                  target="_blank"
+                  class="flex items-center gap-2 px-4 py-2 bg-gray-800 rounded-full hover:text-emerald-400 hover:bg-gray-700 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 hover:scale-105 shadow-lg border border-gray-700 font-medium text-sm"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405 1.02 0 2.04.135 3 .405 2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.285 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                  </svg>
+                  <span>Code</span>
+                </a>
+                <a
+                  v-if="project.links.demo"
+                  :href="project.links.demo"
+                  target="_blank"
+                  class="flex items-center gap-2 px-4 py-2 bg-gray-800 rounded-full hover:text-emerald-400 hover:bg-gray-700 transition-all duration-300 delay-75 transform translate-y-4 group-hover:translate-y-0 hover:scale-105 shadow-lg border border-gray-700 font-medium text-sm"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  <span>Demo</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6 flex-1 flex flex-col">
+              <h3 class="text-xl font-bold text-white mb-2">
+                {{ project.title }}
+              </h3>
+              <p class="text-gray-400 text-sm mb-4 flex-1 leading-relaxed line-clamp-3">
+                {{ project.shortDescription }}
+              </p>
+
+              <!-- Tech Stack -->
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                  v-for="tech in project.techStack"
+                  :key="tech"
+                  class="px-2.5 py-1 bg-gray-700/50 border border-gray-600 text-emerald-400 text-xs rounded-md font-medium"
+                >
+                  {{ tech }}
+                </span>
+              </div>
+
+              <!-- Actions -->
+              <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-700/50">
+                <button
+                  @click="openModal(project)"
+                  class="text-sm text-emerald-400 hover:text-emerald-300 font-medium flex items-center gap-1 transition-colors"
+                >
+                  Read More
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                <div class="flex gap-3">
+                  <a
+                    v-if="project.links.github"
+                    :href="project.links.github"
+                    target="_blank"
+                    class="text-gray-400 hover:text-white transition-colors"
+                    title="View Code"
+                  >
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405 1.02 0 2.04.135 3 .405 2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.285 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                  </a>
+                  <a
+                    v-if="project.links.demo"
+                    :href="project.links.demo"
+                    target="_blank"
+                    class="text-gray-400 hover:text-white transition-colors"
+                    title="Live Demo"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Details Modal -->
+    <div
+      v-if="showModal"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+    >
+      <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="closeModal"></div>
+      <div class="relative bg-gray-800 rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto flex flex-col border border-gray-700">
+        
+        <!-- Modal Header -->
+        <div class="relative h-48 sm:h-64 bg-gray-700 shrink-0">
+          <img
+            :src="selectedProject.image"
+            :alt="selectedProject.title"
+            class="w-full h-full object-cover opacity-90"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+          <button
+            @click="closeModal"
+            class="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors backdrop-blur-md"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
+          </button>
+          <div class="absolute bottom-4 left-6 right-6">
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2">{{ selectedProject.title }}</h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                v-for="tech in selectedProject.techStack"
+                :key="tech"
+                class="px-2.5 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs rounded-md font-medium"
+              >
+                {{ tech }}
+              </span>
+            </div>
           </div>
         </div>
 
-        <!-- Working on it Card 2 -->
-        <div
-          class="bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-emerald-400/20 hover:scale-[1.02] flex flex-col"
-        >
-          <div
-            class="h-40 sm:h-48 bg-gray-700 flex items-center justify-center relative"
-          >
-            <span
-              class="absolute top-3 left-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-600/90 text-white text-xs font-medium shadow"
+        <!-- Modal Body -->
+        <div class="p-6 sm:p-8 space-y-6">
+          <div class="prose prose-invert max-w-none">
+            <h4 class="text-lg font-semibold text-emerald-400 mb-2">Overview</h4>
+            <p class="text-gray-300 leading-relaxed whitespace-pre-line">
+              {{ selectedProject.longDescription }}
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-4 pt-6 border-t border-gray-700">
+            <a
+              v-if="selectedProject.links.github"
+              :href="selectedProject.links.github"
+              target="_blank"
+              class="flex items-center gap-2 px-6 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
             >
-              <span class="relative flex h-2 w-2">
-                <span
-                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"
-                ></span>
-                <span
-                  class="relative inline-flex rounded-full h-2 w-2 bg-white"
-                ></span>
-              </span>
-              Working on it
-            </span>
-            <svg
-              class="w-12 h-12 sm:w-16 sm:h-16 text-emerald-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405 1.02 0 2.04.135 3 .405 2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.285 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              View Source Code
+            </a>
+            <a
+              v-if="selectedProject.links.demo"
+              :href="selectedProject.links.demo"
+              target="_blank"
+              class="flex items-center gap-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors font-medium shadow-lg shadow-emerald-900/20"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-              />
-            </svg>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              Live Demo
+            </a>
           </div>
         </div>
       </div>
@@ -88,7 +211,49 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
+
+const showModal = ref(false);
+const selectedProject = ref({});
+
+const projects = [
+  {
+    title: "Book-Store Application",
+    shortDescription: "A full-stack Node.js web application for managing online book inventory. Features a classic MVC architecture with Express.js and MongoDB.",
+    longDescription: `This Book-Store Application is a comprehensive full-stack solution designed to simulate a real-world e-commerce platform for books. Built using the robust Node.js runtime and Express.js framework, it follows the Model-View-Controller (MVC) architectural pattern to ensure code maintainability and separation of concerns.
+
+    Key features include:
+    • User Authentication & Authorization: Secure signup and login functionality using Passport.js.
+    • Product Management: CRUD operations for managing book inventory (Admin role).
+    • Shopping Cart: Dynamic cart functionality allowing users to add, remove, and update items.
+    • Order Processing: Simulated checkout process.
+    • Responsive UI: Crafted with EJS templating and custom CSS to ensure a seamless experience across devices.
+    • Containerization: Fully Dockerized for consistent development and deployment environments.
+
+    The application leverages MongoDB for flexible data storage, handling complex relationships between users, products, and orders efficiently.`,
+    techStack: ["Node.js", "Express.js", "MongoDB", "Docker", "EJS"],
+    image: "https://placehold.co/600x400/1f2937/34d399?text=Book+Store+App",
+    links: {
+      github: "https://github.com/MengsrunNit/Book-Store",
+      demo: "https://book-store.mengsrun-nit.com"
+    },
+    isPlaceholder: false
+  },
+  {
+    isPlaceholder: true
+  }
+];
+
+const openModal = (project) => {
+  selectedProject.value = project;
+  showModal.value = true;
+  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+};
+
+const closeModal = () => {
+  showModal.value = false;
+  document.body.style.overflow = ''; // Restore scrolling
+};
 
 const matchCardHeights = () => {
   if (window.innerWidth >= 640) {
@@ -96,20 +261,32 @@ const matchCardHeights = () => {
     rows.forEach((row) => {
       const cards = row.querySelectorAll(".bg-gray-800");
       let maxHeight = 0;
+      // Reset height to auto to get natural height
       cards.forEach((card) => {
         card.style.height = "auto";
+      });
+      // Measure
+      cards.forEach((card) => {
         const height = card.offsetHeight;
         maxHeight = Math.max(maxHeight, height);
       });
+      // Apply
       cards.forEach((card) => {
         card.style.height = `${maxHeight}px`;
       });
+    });
+  } else {
+    // Reset on mobile
+    const cards = document.querySelectorAll(".bg-gray-800");
+    cards.forEach((card) => {
+      card.style.height = "auto";
     });
   }
 };
 
 onMounted(() => {
-  matchCardHeights();
+  // Small delay to ensure DOM is rendered
+  setTimeout(matchCardHeights, 100);
   window.addEventListener("resize", matchCardHeights);
 });
 
@@ -157,15 +334,18 @@ section::before {
   }
 }
 
-@media (max-width: 639px) {
-  .bg-gray-800 {
-    height: auto !important;
-  }
-  .grid {
-    row-gap: 1.5rem;
-  }
-  h2 {
-    margin-bottom: 1.25rem;
-  }
+/* Custom Scrollbar for Modal */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px;
+}
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 4px;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
 }
 </style>

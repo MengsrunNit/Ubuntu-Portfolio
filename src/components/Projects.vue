@@ -174,9 +174,7 @@
         <div class="p-6 sm:p-8 space-y-6">
           <div class="prose prose-invert max-w-none">
             <h4 class="text-lg font-semibold text-emerald-400 mb-2">Overview</h4>
-            <p class="text-gray-300 leading-relaxed whitespace-pre-line">
-              {{ selectedProject.longDescription }}
-            </p>
+            <div class="text-gray-300 leading-relaxed" v-html="selectedProject.longDescription"></div>
           </div>
 
           <div class="flex flex-wrap gap-4 pt-6 border-t border-gray-700">
@@ -220,22 +218,62 @@ const projects = [
   {
     title: "Book-Store Application",
     shortDescription: "A full-stack Node.js web application for managing online book inventory. Features a classic MVC architecture with Express.js and MongoDB.",
-    longDescription: `This Book-Store Application is a comprehensive full-stack solution designed to simulate a real-world e-commerce platform for books. Built using the robust Node.js runtime and Express.js framework, it follows the Model-View-Controller (MVC) architectural pattern to ensure code maintainability and separation of concerns.
+    longDescription: `
+      <p class="mb-4">This Book-Store Application is a comprehensive full-stack solution designed to simulate a real-world e-commerce platform for books. Built using the robust Node.js runtime and Express.js framework, it follows the Model-View-Controller (MVC) architectural pattern to ensure code maintainability and separation of concerns.</p>
 
-    Key features include:
-    • User Authentication & Authorization: Secure signup and login functionality using Passport.js.
-    • Product Management: CRUD operations for managing book inventory (Admin role).
-    • Shopping Cart: Dynamic cart functionality allowing users to add, remove, and update items.
-    • Order Processing: Simulated checkout process.
-    • Responsive UI: Crafted with EJS templating and custom CSS to ensure a seamless experience across devices.
-    • Containerization: Fully Dockerized for consistent development and deployment environments.
+      <h5 class="text-lg font-semibold text-white mt-6 mb-2">Key Features</h5>
+      <ul class="list-disc list-inside space-y-2 text-gray-300">
+        <li><strong class="text-emerald-400">User Authentication & Authorization:</strong> Secure signup and login functionality using Passport.js.</li>
+        <li><strong class="text-emerald-400">Product Management:</strong> CRUD operations for managing book inventory (Admin role).</li>
+        <li><strong class="text-emerald-400">Shopping Cart:</strong> Dynamic cart functionality allowing users to add, remove, and update items.</li>
+        <li><strong class="text-emerald-400">Order Processing:</strong> Simulated checkout process.</li>
+        <li><strong class="text-emerald-400">Responsive UI:</strong> Crafted with EJS templating and custom CSS to ensure a seamless experience across devices.</li>
+        <li><strong class="text-emerald-400">Containerization:</strong> Fully Dockerized for consistent development and deployment environments.</li>
+      </ul>
 
-    The application leverages MongoDB for flexible data storage, handling complex relationships between users, products, and orders efficiently.`,
+      <p class="mt-4">The application leverages MongoDB for flexible data storage, handling complex relationships between users, products, and orders efficiently.</p>
+    `,
     techStack: ["Node.js", "Express.js", "MongoDB", "Docker", "EJS"],
     image: "https://placehold.co/600x400/1f2937/34d399?text=Book+Store+App",
     links: {
       github: "https://github.com/MengsrunNit/Book-Store",
       demo: "https://book-store.mengsrun-nit.com"
+    },
+    isPlaceholder: false
+  },
+  {
+    title: "RefurbTech Recommendations",
+    shortDescription: "An intelligent, AI-powered platform designed to help users navigate the refurbished smartphone market. It combines a sophisticated recommendation engine, real-time price tracking models, and an interactive AI chatbot.",
+    longDescription: `
+      <p class="mb-4">RefurbTech Recommendations is an intelligent, AI-powered platform designed to help users navigate the refurbished smartphone market. It combines a sophisticated recommendation engine, real-time price tracking models, and an interactive AI chatbot to provide accurate, data-driven buying advice.</p>
+
+      <h5 class="text-lg font-semibold text-white mt-6 mb-2">🎯 Purpose</h5>
+      <ul class="list-disc list-inside space-y-2 text-gray-300">
+        <li><strong class="text-emerald-400">Demystify Value:</strong> Accurately estimate the current market value of used phones using depreciation models.</li>
+        <li><strong class="text-emerald-400">Personalize Search:</strong> Match users with the perfect device based on their specific needs (budget, ecosystem, usage) rather than just specs.</li>
+        <li><strong class="text-emerald-400">Visualize Trends:</strong> Show how phone prices drop over time to help users decide when to buy.</li>
+      </ul>
+
+      <h5 class="text-lg font-semibold text-white mt-6 mb-2">🏗️ Infrastructure & Architecture</h5>
+      <p class="mb-2">The project is built as a modern full-stack application with a decoupled frontend and backend, supported by a data ingestion pipeline.</p>
+      <ul class="list-none space-y-2 text-gray-300">
+        <li><strong class="text-emerald-400">1. Frontend (/web):</strong> A responsive, single-page application (SPA) featuring a modern "Glassmorphism" UI.</li>
+        <li><strong class="text-emerald-400">2. Backend (/server):</strong> A RESTful API that handles business logic, AI processing, and pricing calculations.</li>
+        <li><strong class="text-emerald-400">3. Data Pipeline (/data):</strong> Python scripts responsible for gathering and cleaning market data.</li>
+      </ul>
+
+      <h5 class="text-lg font-semibold text-white mt-6 mb-2">🚀 Key Features</h5>
+      <ul class="list-disc list-inside space-y-2 text-gray-300">
+        <li><strong class="text-emerald-400">AI Chatbot:</strong> Context-Aware RAG Integration fetches real-time phone specs to answer questions.</li>
+        <li><strong class="text-emerald-400">Price Tracker:</strong> Visualizes the estimated value of phones over time with forecasting.</li>
+        <li><strong class="text-emerald-400">Recommendation Engine:</strong> Scores phones based on user inputs (Longevity, Ecosystem, Usage, Budget).</li>
+      </ul>
+    `,
+    techStack: ["Vue.js 3", "Node.js", "Express.js", "MongoDB", "OpenAI API", "Python", "Chart.js"],
+    image: "https://placehold.co/600x400/1f2937/3b82f6?text=RefurbTech+AI",
+    links: {
+      github: "https://github.com/MengsrunNit/RefurbTech-Recommendations",
+      demo: "https://refurbtech.mengsrun-nit.com/"
     },
     isPlaceholder: false
   },

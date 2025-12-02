@@ -107,6 +107,7 @@
         <FooterSection />
       </main>
     </div>
+    <BackToTop />
   </div>
 </template>
 
@@ -119,6 +120,7 @@ import NavBar from "./components/Navbar.vue";
 import TopBar from "./components/TopBar.vue";
 import Experience from "./components/Expereince.vue";
 import FooterSection from "./components/FooterSection.vue";
+import BackToTop from "./components/BackToTop.vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 export default {
@@ -132,6 +134,7 @@ export default {
     TopBar,
     Experience,
     FooterSection,
+    BackToTop,
   },
   setup() {
     const isDarkTheme = ref(true); // Default to dark theme
@@ -146,6 +149,21 @@ export default {
       isDarkTheme.value = isDark;
     };
 
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+
     onMounted(() => {
       // Listen for theme change events
       window.addEventListener("theme-changed", handleThemeChange);
@@ -155,10 +173,17 @@ export default {
       if (savedTheme !== null) {
         isDarkTheme.value = savedTheme === "dark";
       }
+
+      // Observe all sections
+      document.querySelectorAll("section").forEach((section) => {
+        section.classList.add("fade-section");
+        observer.observe(section);
+      });
     });
 
     onBeforeUnmount(() => {
       window.removeEventListener("theme-changed", handleThemeChange);
+      observer.disconnect();
     });
 
     return {
@@ -174,6 +199,18 @@ export default {
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 70px; /* Ensures anchor links account for fixed navbar */
+}
+
+/* Scroll Reveal Animation */
+.fade-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 body {
